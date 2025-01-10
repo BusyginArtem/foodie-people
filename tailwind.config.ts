@@ -14,7 +14,26 @@ export default {
         foreground: "var(--foreground)",
       },
       dropShadow: {
-        "black-75": "0 0 0.75rem rgba(0, 0, 0, 0.5)",
+        "black-075": "0 0 0.75rem rgba(0, 0, 0, 0.5)",
+      },
+      boxShadow: {
+        "black-05": "0 0 0.5rem rgba(0, 0, 0, 0.5)",
+      },
+      keyframes: {
+        loading: {
+          "0%": {
+            color: "#e9e9e9",
+          },
+          "50%": {
+            color: "#b89b84",
+          },
+          "100%": {
+            color: "#e9e9e9",
+          },
+        },
+      },
+      animation: {
+        loading: "loading 1.2s ease-in-out infinite",
       },
     },
   },
@@ -26,8 +45,8 @@ export default {
           "-webkit-background-clip": "text",
           "background-clip": "text",
         },
-        '.text-shadow': {
-          'text-shadow': '0 0 18px rgba(248, 190, 42, 0.8)',
+        ".text-shadow": {
+          "text-shadow": "0 0 18px rgba(248, 190, 42, 0.8)",
         },
       });
     },
