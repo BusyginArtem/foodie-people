@@ -31,4 +31,7 @@ export type Meal = {
   creator_email: string;
 };
 
-export type MealRawData = Omit<Meal, "id">;
+export type RawDataMeal = Omit<
+  Meal,
+  "id" | "slug" | "image" | "creator_email" | "creator"
+> & { image: File };

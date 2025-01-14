@@ -18,6 +18,7 @@ export default {
       },
       boxShadow: {
         "black-05": "0 0 0.5rem rgba(0, 0, 0, 0.5)",
+        "black-5-03": "0 2px 5px rgba(0, 0, 0, 0.3)",
       },
       keyframes: {
         loading: {
@@ -33,7 +34,6 @@ export default {
         },
         "fade-slide-in-from-left": {
           "0%": {
-            // ANCHOR
             opacity: "0",
             transform: "translateX(-1rem)",
           },
@@ -62,6 +62,17 @@ export default {
             transform: "translateY(0)",
           },
         },
+        flash: {
+          "0%": {
+            opacity: "0",
+          },
+          "50%": {
+            opacity: "1",
+          },
+          "100%": {
+            opacity: "0",
+          },
+        },
       },
       animation: {
         loading: "loading 1.2s ease-in-out infinite",
@@ -71,6 +82,7 @@ export default {
           "fade-slide-in-from-right 1s ease-out forwards",
         "fade-slide-in-from-bottom":
           "fade-slide-in-from-bottom 1s ease-out forwards",
+        flash: "flash 1s ease-in-out infinite alternate",
       },
     },
   },

@@ -3,7 +3,7 @@ import Image from "next/image";
 //
 import { APP_PATH } from "@/lib/constants";
 
-import type { MealRawData } from "@/lib/types";
+import type { Meal } from "@/lib/types";
 
 export default function MealItem({
   title,
@@ -11,12 +11,12 @@ export default function MealItem({
   image,
   summary,
   creator,
-}: Omit<MealRawData, "instructions" | "creator_email">) {
+}: Omit<Meal, "id" | "instructions" | "creator_email">) {
   return (
-    <article className="hover:shadow-none flex h-full flex-col justify-between overflow-hidden rounded-[0.25rem] bg-gradient-to-r from-[#2c1e19] to-[#25200f] text-orange-100 shadow-[0_0_20px_rgba(20,30,30)] transition-all">
+    <article className="flex h-full flex-col justify-between overflow-hidden rounded-[0.25rem] bg-gradient-to-r from-[#2c1e19] to-[#25200f] text-orange-100 shadow-[0_0_20px_rgba(20,30,30)] transition-all hover:shadow-none">
       <header>
         <div className="relative h-[15rem]">
-          <Image src={image} alt={title} fill />
+          <Image src={image} alt={title} fill className="object-cover" />
         </div>
         <div className="pl-4 pr-4 pt-2">
           <h2 className="text-2xl">{title}</h2>

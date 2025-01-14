@@ -1,5 +1,3 @@
-// const MealRawData = require("./lib/types");
-
 const sql = require("better-sqlite3");
 const db = sql("meals.db");
 

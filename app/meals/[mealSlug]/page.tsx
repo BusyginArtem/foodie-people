@@ -17,6 +17,8 @@ export default async function MealPage({ params }: Props) {
     notFound();
   }
 
+  meal.instructions = meal.instructions.replace(/\n/g, "<br />");
+
   return (
     <>
       <header className="m-auto flex max-w-[80rem] gap-12 px-8 py-4">
@@ -29,8 +31,8 @@ export default async function MealPage({ params }: Props) {
           />
         </div>
 
-        <div className="animate-fade-slide-in-from-right flex max-w-[40rem] flex-col gap-4 p-[0.5rem,1rem,0,1rem] text-orange-100">
-          <h1 className="text-6xl uppercase shadow-black-05">{meal.title}</h1>
+        <div className="flex max-w-[40rem] animate-fade-slide-in-from-right flex-col gap-4 p-[0.5rem,1rem,0,1rem] text-orange-100">
+          <h1 className="text-6xl uppercase text-shadow">{meal.title}</h1>
 
           <p className="text-2xl italic text-[#cfa69b]">
             by{" "}
@@ -45,9 +47,9 @@ export default async function MealPage({ params }: Props) {
           <p className="text-2xl">{meal.summary}</p>
         </div>
       </header>
-      <main className="">
+      <main className="mt-8 flex justify-center">
         <p
-          className="animate-fade-slide-in-from-bottom mx-8 my-auto max-w-[60rem] rounded-lg bg-[#6e6464] p-8 text-xl text-[#13120f] shadow-black-05"
+          className="mx-8 my-auto max-w-[60rem] animate-fade-slide-in-from-bottom rounded-lg bg-[#6e6464] p-8 text-xl text-[#13120f] shadow-black-05"
           dangerouslySetInnerHTML={{
             __html: meal.instructions,
           }}
