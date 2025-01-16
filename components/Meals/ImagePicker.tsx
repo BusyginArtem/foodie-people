@@ -1,27 +1,32 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import { useFormStatus } from "react-dom";
+import { z } from "zod";
+import { UseFormRegister } from "react-hook-form";
+//
+import { formSchema } from "@/lib/validation/form";
 
 type Props = {
-  label: string;
-  name: string;
+  formRegister: UseFormRegister<z.output<typeof formSchema>>;
+  formError?: string;
 };
 
-export default function ImagePicker({ label, name }: Props) {
+const FIELD_NAME = "image";
+
+export default function ImagePicker({ formRegister, formError }: Props) {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
-  const [error, setError] = useState<string | null>(null);
 
   const imageInput = useRef<HTMLInputElement>(null);
   const pendingStatus = useRef<boolean>(false);
 
   const { data, pending } = useFormStatus();
+  let { onChange, name, ref: formRef } = formRegister(FIELD_NAME);
 
   useEffect(() => {
     if (pendingStatus.current && !data) {
       setImagePreview(null);
-      setError(null);
     }
 
     pendingStatus.current = pending;
@@ -30,7 +35,6 @@ export default function ImagePicker({ label, name }: Props) {
   useEffect(() => {
     return () => {
       setImagePreview(null);
-      setError(null);
     };
   }, []);
 
@@ -40,16 +44,9 @@ export default function ImagePicker({ label, name }: Props) {
 
   function handleChoosePickImage(event: React.ChangeEvent<HTMLInputElement>) {
     const file = event.target.files?.[0];
+    onChange({ target: event.target });
 
     if (!file) {
-      setError("No file selected");
-      setImagePreview(null);
-
-      return;
-    }
-
-    if (!file.type.startsWith("image/")) {
-      setError("Please select an image file");
       return;
     }
 
@@ -57,11 +54,9 @@ export default function ImagePicker({ label, name }: Props) {
 
     fileReader.onload = () => {
       setImagePreview(fileReader.result as string);
-      setError(null);
     };
 
     fileReader.onerror = () => {
-      setError("Failed to read file");
       setImagePreview(null);
     };
 
@@ -71,19 +66,21 @@ export default function ImagePicker({ label, name }: Props) {
   return (
     <div className="flex w-full flex-col items-start gap-2">
       <label htmlFor={name} className="share-meal__form__label">
-        {label}
+        Your image
       </label>
 
       <div className="mb-4 flex w-full flex-col items-start gap-6">
         <input
-          ref={imageInput}
+          ref={(ref) => {
+            formRef(ref);
+            imageInput.current = ref;
+          }}
           type="file"
           id={name}
           accept="image/png, image/jpeg"
           name={name}
           className="hidden"
           onChange={handleChoosePickImage}
-          required
         />
 
         {imagePreview && (
@@ -97,7 +94,7 @@ export default function ImagePicker({ label, name }: Props) {
           </div>
         )}
 
-        {error && <p className="text-red-400">{error}</p>}
+        {formError && <p className="text-red-400">{formError}</p>}
 
         <button
           className="cursor-pointer rounded-sm border-0 bg-[#a4abb9] px-6 py-2 text-inherit transition-colors hover:bg-[#8e94a0] focus:bg-[#8e94a0]"

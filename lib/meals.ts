@@ -34,11 +34,11 @@ export async function getMeal({
 export async function saveMeal(meal: RawDataMeal) {
   const slug = slugify(meal.title, { lower: true });
   const instructions = xss(meal.instructions);
-  const extension = meal.image.name.split(".").pop();
+  const extension = meal.image[0].name.split(".").pop();
   const fileName = `${slug}-${randomInteger(0, 1000)}.${extension}`;
 
   const stream = createWriteStream(`public/images/${fileName}`);
-  const bufferedImage = await meal.image.arrayBuffer();
+  const bufferedImage = await meal.image[0].arrayBuffer();
 
   stream.write(Buffer.from(bufferedImage), (error) => {
     if (error) {

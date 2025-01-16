@@ -34,4 +34,4 @@ export type Meal = {
 export type RawDataMeal = Omit<
   Meal,
   "id" | "slug" | "image" | "creator_email" | "creator"
-> & { image: File };
+> & { image: [File] };
