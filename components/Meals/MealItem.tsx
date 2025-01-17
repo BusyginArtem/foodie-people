@@ -16,7 +16,13 @@ export default function MealItem({
     <article className="flex h-full flex-col justify-between overflow-hidden rounded-[0.25rem] bg-gradient-to-r from-[#2c1e19] to-[#25200f] text-orange-100 shadow-[0_0_20px_rgba(20,30,30)] transition-all hover:shadow-none">
       <header>
         <div className="relative h-[15rem]">
-          <Image src={image} alt={title} fill className="object-cover" />
+          <Image
+            src={image}
+            alt={title}
+            fill
+            // sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="object-cover"
+          />
         </div>
         <div className="pl-4 pr-4 pt-2">
           <h2 className="text-2xl">{title}</h2>

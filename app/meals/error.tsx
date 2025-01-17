@@ -1,10 +1,12 @@
 "use client";
 
-export default function Error({
-  error,
-}: {
-  error: Error & { digest?: string };
-}) {
+// {
+//   error,
+// }: {
+//   error: Error & { digest?: string };
+// }
+
+export default function Error() {
   return (
     <main className="error">
       <h1>An error occurred!</h1>

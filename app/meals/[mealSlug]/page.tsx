@@ -1,12 +1,28 @@
 import Image from "next/image";
+import { Metadata } from "next";
+import { notFound } from "next/navigation";
 //
 import { getMeal } from "@/lib/meals";
 import type { MealId } from "@/lib/types";
-import { notFound } from "next/navigation";
 
 type Props = {
   params: Promise<{ mealSlug: string }>;
 };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const mealSlug = (await params).mealSlug as MealId;
+
+  const meal = await getMeal({ slug: mealSlug });
+
+  if (!meal) {
+    notFound();
+  }
+
+  return {
+    title: meal.title,
+    description: meal.summary,
+  };
+}
 
 export default async function MealPage({ params }: Props) {
   const mealSlug = (await params).mealSlug as MealId;

@@ -35,3 +35,9 @@ export type RawDataMeal = Omit<
   Meal,
   "id" | "slug" | "image" | "creator_email" | "creator"
 > & { image: [File] };
+
+export type FormState = {
+  message: string;
+  fields?: Record<string, string | File>;
+  errors?: { path: string; message: string }[];
+};

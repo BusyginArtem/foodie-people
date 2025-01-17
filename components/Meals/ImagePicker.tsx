@@ -22,7 +22,7 @@ export default function ImagePicker({ formRegister, formError }: Props) {
   const pendingStatus = useRef<boolean>(false);
 
   const { data, pending } = useFormStatus();
-  let { onChange, name, ref: formRef } = formRegister(FIELD_NAME);
+  const { onChange, name, ref: formRef } = formRegister(FIELD_NAME);
 
   useEffect(() => {
     if (pendingStatus.current && !data) {

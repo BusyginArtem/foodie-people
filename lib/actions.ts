@@ -1,15 +1,11 @@
 "use server";
 
 import { saveMeal } from "./meals";
-import { RawDataMeal } from "./types";
+import { FormState, RawDataMeal } from "./types";
 import { formSchema } from "./validation/form";
 import { transformZodErrors } from "./utils";
-
-export type FormState = {
-  message: string;
-  fields?: Record<string, string | File>;
-  errors?: { path: string; message: string }[];
-};
+import { revalidatePath } from "next/cache";
+import { APP_PATH } from "./constants";
 
 export async function shareMealAction(prevState: FormState, data: FormData) {
   const formData = Object.fromEntries(data);
@@ -24,6 +20,8 @@ export async function shareMealAction(prevState: FormState, data: FormData) {
       creator: parsedFields.data.name,
       creator_email: parsedFields.data.email,
     } as RawDataMeal);
+
+    revalidatePath(APP_PATH.MEALS);
 
     return {
       message: "Meal has been created!",

@@ -9,10 +9,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import FormButton from "@/components/Buttons/FormSubmitButton";
 import ImagePicker from "@/components/Meals/ImagePicker";
 //
-import { FormState, shareMealAction } from "@/lib/actions";
+import { shareMealAction } from "@/lib/actions";
 import { formSchema } from "@/lib/validation/form";
 import { cn } from "@/lib/utils";
 import { APP_PATH } from "@/lib/constants";
+import { FormState } from "@/lib/types";
 
 export default function MealForm() {
   const [formState, formAction] = useActionState<FormState, FormData>(
